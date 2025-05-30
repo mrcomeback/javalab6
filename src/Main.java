@@ -3,20 +3,14 @@ import java.sql.*;
 public class Main {
     public static void main(String[] args) {
         try {
-            // Load JDBC driver
-            Class.forName("org.postgresql.Driver");
-
-            // Create connection to PostgreSQL database
             Connection connection = DriverManager.getConnection(
                     "jdbc:postgresql://localhost:5432/lab6db",
                     "postgres",
                     "qwe123"
             );
 
-            // Example entity
             User user = new User(1, "Alice", "alice@gmail.com");
 
-            // Repository
             DbRepositoryImpl<User, Integer> repo = new DbRepositoryImpl<>(
                     connection,
                     "users",
@@ -43,11 +37,8 @@ public class Main {
                     }
             );
 
-
-            // Save user
             repo.save(user);
 
-            // Print all users
             for (User u : repo.findAll()) {
                 System.out.println(u);
             }
